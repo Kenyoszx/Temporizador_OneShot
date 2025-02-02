@@ -1,0 +1,67 @@
+{
+    "version": 1,
+    "author": "João Victor de Souza Silva",
+    "editor": "wokwi",
+    "parts": [
+      { "type": "board-pi-pico-w", "id": "pico", "top": 0, "left": 0, "attrs": {} },
+      {
+        "type": "wokwi-pushbutton",
+        "id": "btn1",
+        "top": 35,
+        "left": -86.4,
+        "attrs": { "color": "green" }
+      },
+      {
+        "type": "wokwi-led",
+        "id": "led1",
+        "top": 102,
+        "left": -111.4,
+        "attrs": { "color": "green" }
+      },
+      {
+        "type": "wokwi-led",
+        "id": "led2",
+        "top": 150,
+        "left": -111.4,
+        "attrs": { "color": "blue" }
+      },
+      { "type": "wokwi-led", "id": "led3", "top": 198, "left": -111.4, "attrs": { "color": "red" } },
+      {
+        "type": "wokwi-resistor",
+        "id": "r1",
+        "top": 138.35,
+        "left": -192,
+        "attrs": { "value": "1000" }
+      },
+      {
+        "type": "wokwi-resistor",
+        "id": "r2",
+        "top": 186.35,
+        "left": -192,
+        "attrs": { "value": "1000" }
+      },
+      {
+        "type": "wokwi-resistor",
+        "id": "r3",
+        "top": 234.35,
+        "left": -192,
+        "attrs": { "value": "1000" }
+      }
+    ],
+    "connections": [
+      [ "pico:GP0", "$serialMonitor:RX", "", [] ],
+      [ "pico:GP1", "$serialMonitor:TX", "", [] ],
+      [ "pico:GND.1", "btn1:1.r", "black", [ "h0" ] ],
+      [ "pico:GP5", "btn1:2.r", "black", [ "h0" ] ],
+      [ "pico:GP12", "led2:A", "red", [ "h-63.65", "v15.99" ] ],
+      [ "pico:GP13", "led3:A", "red", [ "h-63.65", "v44.79" ] ],
+      [ "pico:GP11", "led1:A", "red", [ "h0" ] ],
+      [ "led3:C", "r3:2", "black", [ "v0" ] ],
+      [ "led2:C", "r2:2", "black", [ "v0" ] ],
+      [ "led1:C", "r1:2", "black", [ "v0" ] ],
+      [ "pico:GND.4", "r1:1", "black", [ "h-44.45", "v83.19", "h-172.8", "v-115.2" ] ],
+      [ "pico:GND.4", "r2:1", "black", [ "h-44.45", "v83.19", "h-172.8", "v-67.2" ] ],
+      [ "pico:GND.4", "r3:1", "black", [ "h-44.45", "v83.19", "h-172.8", "v-19.2" ] ]
+    ],
+    "dependencies": {}
+  }

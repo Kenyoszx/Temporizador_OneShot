@@ -15,6 +15,7 @@ void init();
 int64_t led_red_callback(alarm_id_t id, void *user_data);
 int64_t led_blue_callback(alarm_id_t id, void *user_data);
 int64_t led_green_callback(alarm_id_t id, void *user_data);
+void set_all_pin_on();
 
 int main()
 {
@@ -24,25 +25,21 @@ int main()
     while (true)
     {
         // Verifica se o botão foi pressionado (nível baixo no pino) e se o LED não está ativo.
-        if (!gpio_get(BUTTON_A_PIN))
+        if (!gpio_get(BUTTON_A_PIN) && !led_active)
         {
             uint32_t current_time = to_us_since_boot(get_absolute_time());
-            if (current_time - last_time > 200000) // 200 ms de debouncing
+            if (current_time - last_time > 50000) // 50 ms de debouncing
             {
                 last_time = current_time; // Atualiza o tempo do último evento
-                if (!led_active)
-                {
-                    gpio_put(LED_PIN_RED, 1);
-                    gpio_put(LED_PIN_BLUE, 1);
-                    gpio_put(LED_PIN_GREEN, 1);
-                    led_active = true;
-                    add_alarm_in_ms(3000, led_green_callback, NULL, false);
-                    add_alarm_in_ms(6000, led_blue_callback, NULL, false);
-                    add_alarm_in_ms(9000, led_red_callback, NULL, false);
-                    led_active = false;
-                }
+                set_all_pin_on();
+                led_active = true;
+                add_alarm_in_ms(3000, led_green_callback, NULL, false);
+                add_alarm_in_ms(6000, led_blue_callback, NULL, false);
+                add_alarm_in_ms(9000, led_red_callback, NULL, false);
             }
         }
+        if (!gpio_get(LED_PIN_GREEN) && !gpio_get(LED_PIN_BLUE) && !gpio_get(LED_PIN_RED))
+            led_active = false;
     }
 }
 void init()
@@ -67,12 +64,22 @@ void init()
 int64_t led_red_callback(alarm_id_t id, void *user_data)
 {
     gpio_put(LED_PIN_RED, 0);
+    return 0;
 }
 int64_t led_blue_callback(alarm_id_t id, void *user_data)
 {
     gpio_put(LED_PIN_BLUE, 0);
+    return 0;
 }
 int64_t led_green_callback(alarm_id_t id, void *user_data)
 {
     gpio_put(LED_PIN_GREEN, 0);
+    return 0;
+}
+void set_all_pin_on()
+{
+    gpio_put(LED_PIN_RED, 1);
+    gpio_put(LED_PIN_BLUE, 1);
+    gpio_put(LED_PIN_GREEN, 1);
+    led_active = true;
 }
