@@ -28,6 +28,9 @@ Antes de começar, certifique-se de que você tenha o ambiente de desenvolviment
 1. Compile o código usando o ambiente de desenvolvimento configurado.
 2. Após a compilação, faça o upload do código para o seu **Raspberry Pi Pico**.
 
+## Video Demonstrativo do funcionamento
+[Demonstração: Temporizador OneShot](https://drive.google.com/file/d/1xMrkMGJN-GzwOL41uIthkTKbuEhGJL_B/view?usp=sharing)
+
 ## Tecnologias Utilizadas
 
 - **C/C++**
